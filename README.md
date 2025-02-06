@@ -1,39 +1,19 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## Tree Data Table
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Use Tree data table to handle rows with parent / child relationship.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+<img src="https://raw.githubusercontent.com/Monkeyinator/ree_data_table/tree/main/example/media/tree_data_table.png" alt="Example Project" />
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+### Reporting bugs
 
-## Features
+If you come across any bugs, please use the [GitHub Issue Tracker](https://github.com/Monkeyinator/tree_data_table/issues)
+to search for existing issues or to report a new one.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Contribution
 
-## Getting started
+If you have contributions to the package, you're welcome to submit a
+[GitHub Pull Request](https://github.com/Monkeyinator/tree_data_table/pulls).
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## License
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+All source code is openly available and distributed under the MIT license.
