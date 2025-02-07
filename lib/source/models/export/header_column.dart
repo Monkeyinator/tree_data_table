@@ -21,6 +21,12 @@ class HeaderColumn {
   /// The height of the header column. Defaults to 55
   final int height;
 
+  /// All rows for this column will be pinned to the left
+  final bool pinLeft;
+
+  /// All rows for this column will be pinned to the right
+  final bool pinRight;
+
   /// Creates a new instance of [HeaderColumn]
   HeaderColumn({
     this.id,
@@ -28,5 +34,7 @@ class HeaderColumn {
     this.hide = false,
     this.width,
     this.height = 55,
-  });
+    this.pinLeft = false,
+    this.pinRight = false,
+  }) : assert(!(pinLeft && pinRight), 'pinLeft and pinRight cannot both be true');
 }

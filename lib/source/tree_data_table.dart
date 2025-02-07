@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'models/header_row.dart';
+import 'models/export/header_row.dart';
+import 'models/export/tree_row_node.dart';
 import 'models/tree_column.dart';
-import 'models/tree_row_node.dart';
 import 'widget/grid_expansion_tile.dart';
 import 'widget/grid_header.dart';
 
@@ -92,20 +92,50 @@ class _TreeDataTableState extends State<TreeDataTable> {
     return [
       ListView(
         children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: rows.map((row) {
-                return IntrinsicWidth(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: row.map((column) {
-                      return column.widget;
+          Row(
+            children: [
+              Row(
+                children: rows.map((row) {
+                  return IntrinsicWidth(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: row.where((column) => column.pinLeft).map((column) {
+                        return column.widget;
+                      }).toList(),
+                    ),
+                  );
+                }).toList(),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: rows.map((row) {
+                      return IntrinsicWidth(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: row.where((column) => !column.pinLeft && !column.pinRight).map((column) {
+                            return column.widget;
+                          }).toList(),
+                        ),
+                      );
                     }).toList(),
                   ),
-                );
-              }).toList(),
-            ),
+                ),
+              ),
+              Row(
+                children: rows.map((row) {
+                  return IntrinsicWidth(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: row.where((column) => column.pinRight).map((column) {
+                        return column.widget;
+                      }).toList(),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
           ),
         ],
       ),
@@ -140,14 +170,21 @@ class _TreeDataTableState extends State<TreeDataTable> {
     int columnIndex, {
     int level = 0,
     bool buildHeader = true,
+    bool pinLeft = false,
+    bool pinRight = false,
   }) {
     List<TreeColumn> columns = [];
 
     if (buildHeader) {
       for (int rowIndex = 0; rowIndex < headerRows.length; rowIndex++) {
+        pinLeft = headerRows[rowIndex].columns[columnIndex].pinLeft;
+        pinRight = headerRows[rowIndex].columns[columnIndex].pinRight;
+
         columns.add(
           TreeColumn(
             widget: _buildHeaderColumn(headerRows[rowIndex], columnIndex),
+            pinLeft: pinLeft,
+            pinRight: pinRight,
           ),
         );
       }
@@ -159,12 +196,14 @@ class _TreeDataTableState extends State<TreeDataTable> {
       columns.add(
         TreeColumn(
           widget: _buildDataColumn(treeNode, columnIndex, level),
+          pinLeft: pinLeft,
+          pinRight: pinRight,
         ),
       );
 
       if (treeNode.isExpanded) {
-        List<TreeColumn> expandedTreeRowNode =
-            _buildDataColumns(headerRows, treeNode.rows, columnIndex, level: level + 1, buildHeader: buildHeader);
+        List<TreeColumn> expandedTreeRowNode = _buildDataColumns(headerRows, treeNode.rows, columnIndex,
+            level: level + 1, buildHeader: buildHeader, pinLeft: pinLeft, pinRight: pinRight);
         columns.addAll(expandedTreeRowNode);
       }
     }

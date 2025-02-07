@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../models/tree_row_node.dart';
+import '../models/export/tree_row_node.dart';
 
 class GridExpansionTile extends StatefulWidget {
   final int level;

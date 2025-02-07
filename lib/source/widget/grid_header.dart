@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../models/header_row.dart';
+import '../models/export/header_row.dart';
 
 class GridHeader extends StatefulWidget {
   final int maxLevel;

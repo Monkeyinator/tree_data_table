@@ -11,17 +11,9 @@ class TreeColumn {
   /// Widget to be displayed in the column
   final Widget widget;
 
-  /// All rows for this column will be pinned to the left
-  final bool pinLeft;
-
-  /// All rows for this column will be pinned to the right
-  final bool pinRight;
-
   /// Creates a new instance of [TreeColumn]
   TreeColumn({
     this.index,
     required this.widget,
-    this.pinLeft = false,
-    this.pinRight = false,
   });
 }
